@@ -6,7 +6,7 @@
 /*   By: mouarar <mouarar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 11:02:01 by mouarar           #+#    #+#             */
-/*   Updated: 2024/11/23 11:17:20 by mouarar          ###   ########.fr       */
+/*   Updated: 2024/11/25 15:47:04 by mouarar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_printf(const char *str, ...);
 int	ft_putstr(char *str);
 int	ft_putchar(char c);
 int	ft_hex(unsigned int num, int up, int low);
-int	ft_adress(unsigned long long num, int ox);
+int	ft_adress(unsigned long num, int ox);
 int	ft_putnbr_u(unsigned int nb);
 
 #endif

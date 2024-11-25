@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   fake_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mouarar <mouarar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 10:59:47 by mouarar           #+#    #+#             */
-/*   Updated: 2024/11/25 15:50:16 by mouarar          ###   ########.fr       */
+/*   Created: 2024/11/25 12:54:16 by mouarar           #+#    #+#             */
+/*   Updated: 2024/11/25 17:52:52 by mouarar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "ft_printf_bonus.h"
 
-int	ft_hex(unsigned int num, int up, int low)
+int	fake_ft_hex(unsigned int num, int up, int low)
 {
 	char	*base_up;
 	char	*base_low;
@@ -23,18 +22,18 @@ int	ft_hex(unsigned int num, int up, int low)
 	base_up = "0123456789ABCDEF";
 	count = 0;
 	if (num < 16 && low)
-		count += ft_putchar(base_low[num]);
+		count += 1;
 	else if (num < 16 && up)
-		count += ft_putchar(base_up[num]);
+		count += 1;
 	else
 	{
-		count += ft_hex(num / 16, up, low);
-		count += ft_hex(num % 16, up, low);
+		count += fake_ft_hex(num / 16, up, low);
+		count += fake_ft_hex(num % 16, up, low);
 	}
 	return (count);
 }
 
-int	ft_adress(unsigned long num, int ox)
+int	fake_ft_adress(unsigned long num, int ox)
 {
 	char	*base_low;
 	int		count;
@@ -43,20 +42,20 @@ int	ft_adress(unsigned long num, int ox)
 	count = 0;
 	if (ox)
 	{
-		count += ft_putstr("0x");
+		count += fake_ft_putstr("0x");
 		ox = 0;
 	}
 	if (num < 16)
-		count += ft_putchar(base_low[num]);
+		count += 1;
 	else
 	{
-		count += ft_adress(num / 16, ox);
-		count += ft_adress(num % 16, ox);
+		count += fake_ft_adress(num / 16, ox);
+		count += fake_ft_adress(num % 16, ox);
 	}
 	return (count);
 }
 
-int	ft_putnbr(int nb)
+int	fake_ft_putnbr(int nb)
 {
 	char	x;
 	int		count;
@@ -64,28 +63,28 @@ int	ft_putnbr(int nb)
 	count = 0;
 	if (nb == -2147483648)
 	{
-		count += ft_putstr("-2147483648");
+		count += fake_ft_putstr("-2147483648");
 		return (count);
 	}
 	if (nb < 0)
 	{
-		count += write(1, "-", 1);
+		count += 1;
 		nb = nb * -1;
 	}
 	if (nb > 9)
 	{
-		count += ft_putnbr(nb / 10);
-		count += ft_putnbr(nb % 10);
+		count += fake_ft_putnbr(nb / 10);
+		count += fake_ft_putnbr(nb % 10);
 	}
 	else
 	{
 		x = nb + 48;
-		count += ft_putchar(x);
+		count += 1;
 	}
 	return (count);
 }
 
-int	ft_putnbr_u(unsigned int nb)
+int	fake_ft_putnbr_u(unsigned int nb)
 {
 	char	x;
 	int		count;
@@ -93,18 +92,18 @@ int	ft_putnbr_u(unsigned int nb)
 	count = 0;
 	if (nb > 9)
 	{
-		count += ft_putnbr(nb / 10);
-		count += ft_putnbr(nb % 10);
+		count += fake_ft_putnbr(nb / 10);
+		count += fake_ft_putnbr(nb % 10);
 	}
 	else
 	{
 		x = nb + 48;
-		count += ft_putchar(x);
+		count += 1;
 	}
 	return (count);
 }
 
-int	ft_putstr(char *str)
+int	fake_ft_putstr(char *str)
 {
 	int	i;
 	int	count;
@@ -113,12 +112,12 @@ int	ft_putstr(char *str)
 	i = 0;
 	if (!str)
 	{
-		count += ft_putstr("(null)");
+		count += fake_ft_putstr("(null)");
 		return (count);
 	}
 	while (str[i])
 	{
-		count += write(1, &str[i], 1);
+		count += 1;
 		i++;
 	}
 	return (count);
