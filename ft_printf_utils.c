@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   ft_printf_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mouarar <mouarar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 10:59:47 by mouarar           #+#    #+#             */
-/*   Updated: 2024/11/25 15:50:16 by mouarar          ###   ########.fr       */
+/*   Created: 2024/11/28 15:35:52 by mouarar           #+#    #+#             */
+/*   Updated: 2024/11/29 10:07:08 by mouarar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "ft_printf_bonus.h"
 
 int	ft_hex(unsigned int num, int up, int low)
 {

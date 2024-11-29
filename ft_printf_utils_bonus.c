@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus_utils_1.c                          :+:      :+:    :+:   */
+/*   ft_printf_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mouarar <mouarar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/23 19:30:32 by mouarar           #+#    #+#             */
-/*   Updated: 2024/11/25 18:03:44 by mouarar          ###   ########.fr       */
+/*   Created: 2024/11/28 15:35:57 by mouarar           #+#    #+#             */
+/*   Updated: 2024/11/29 10:07:03 by mouarar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
 #include "ft_printf.h"
 
-int	condition(const char *str, int *i, int *space, int *plus)
+void	condition(const char *str, int *ft_hash, int *space, int *plus)
 {
-	if (str[*i] == '+')
+	if (*str == '+')
 		*plus = 1;
-	else if (str[*i] == ' ')
+	else if (*str == ' ')
 		*space = 1;
-	else if (str[*i] == '#')
-	{
-		(*i)++;
-		return (1);
-	}
-	(*i)++;
-	return (0);
+	else if (*str == '#')
+		*ft_hash = 1;
 }
 
-void	ft_vars(int *condition, int *plus, int *space, int *hash)
+void	ft_vars(int *plus, int *space, int *hash)
 {
-	*condition = 0;
 	*plus = 0;
 	*space = 0;
 	*hash = 0;
@@ -38,28 +31,29 @@ void	ft_vars(int *condition, int *plus, int *space, int *hash)
 
 int	ft_bon(va_list argement, int *i, const char *str)
 {
-	t_var	hello;
+	t_var	v;
 
-	ft_vars(&hello.condition, &hello.plus, &hello.space, &hello.hash);
+	ft_vars(&v.plus, &v.space, &v.hash);
 	while (str[*i] && (str[*i] == ' ' || str[*i] == '+' || str[*i] == '#'))
 	{
-		hello.hash = condition(str, i, &hello.space, &hello.plus);
-		if (hello.hash == 1)
-			hello.condition = 1;
+		condition(str + *i, &v.hash, &v.space, &v.plus);
+		(*i)++;
 	}
-	if (str[*i] == '%')
-		return (ft_putchar('%'));
+	if (str[*i] == 'p')
+		return (ft_adress(va_arg(argement, unsigned long), 1));
 	else if (str[*i] && (str[*i] == 'x' || str[*i] == 'X'))
-		return (ft_hash(argement, i, str, hello.condition));
+		return (ft_hash(argement, i, str, v.hash));
 	if (str[*i] && str[*i] == 's')
 		return (ft_putstr(va_arg(argement, char *)));
-	hello.num = va_arg(argement, int);
-	if (str[*i] && (hello.num >= 0 && !hello.plus && hello.space))
-		return (ft_putchar(' ') + ft_putnbr(hello.num));
-	else if (str[*i] && (hello.num >= 0 && hello.plus))
-		return (ft_putchar('+') + ft_putnbr(hello.num));
+	v.number = va_arg(argement, int);
+	if ((str[*i] == 'd' || str[*i] == 'i') && (v.number >= 0 && v.plus))
+		return (ft_putchar('+') + ft_putnbr(v.number));
+	else if ((str[*i] == 'd' || str[*i] == 'i') && (v.number >= 0 && v.space))
+		return (ft_putchar(' ') + ft_putnbr(v.number));
 	else if (str[*i] && (str[*i] == 'd' || str[*i] == 'i'))
-		return (ft_putnbr(hello.num));
+		return (ft_putnbr(v.number));
+	else if (str[*i])
+		return (ft_putchar(str[*i]));
 	return (0);
 }
 
